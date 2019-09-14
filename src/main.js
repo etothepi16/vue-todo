@@ -1,7 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
+import VueRouter from "vue-router";
 import firebase from "firebase";
+import { routes } from "./router";
+import { store } from "./store";
 
 const config = {
   apiKey: "AIzaSyCbjIYCRlwhoCSTGJodHz4CVrMvkjWDOjU",
@@ -15,15 +17,33 @@ const config = {
 
 firebase.initializeApp(config);
 
-Vue.config.productionTip = false;
-
-let app = "";
-
-firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
-      render: h => h(App)
-    }).$mount("#app");
-  }
+Vue.use(VueRouter);
+const router = new VueRouter({
+  routes: routes,
+  mode: "history"
 });
+
+// Check if user is authenticated and if route requires authentication
+router.beforeEach((to, from, next) => {
+  // to and from are both route objects. must call `next`.
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(route => route.meta.requiresAuth);
+  if (requiresAuth && !currentUser) next("login");
+  else if (!requiresAuth && currentUser) next("home");
+  else next();
+});
+
+// Wrap the vue instance in a Firebase onAuthStateChanged method
+// This stops the execution of the navigation guard 'beforeEach'
+// method until the Firebase initialization ends
+// eslint-disable-next-line no-unused-vars
+firebase.auth().onAuthStateChanged(() => {
+  new Vue({
+    el: "#app",
+    store: store,
+    router: router,
+    render: h => h(App)
+  });
+});
+const db = firebase.firestore();
+export { db };

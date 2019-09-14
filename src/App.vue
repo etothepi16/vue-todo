@@ -1,41 +1,27 @@
 <template>
   <div id="app">
     <Header />
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
-<script> 
-  import Header from './components/layout/Header';
-  export default{
-    name:"app",
-    components: {
-      Header
+<script>
+import Header from "./components/layout/Header";
+import "./App.scss";
+export default {
+  name: "app",
+  components: {
+    Header
+  },
+  methods: {
+    setUser() {
+      this.$store.dispatch("setUser");
     }
+  },
+  created() {
+    this.setUser();
   }
+};
 </script>
 
-<style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.4;
-  }
-
-  .btn{
-    display: inline-block;
-    border: none;
-    background: #555;
-    color: #fff;
-    padding: 7px 20px;
-    cursor: pointer;
-  }
-
-  .btn:hover{
-    background: #666;
-  }
-</style>
+<style></style>

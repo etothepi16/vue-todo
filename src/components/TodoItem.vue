@@ -1,43 +1,33 @@
 <template lang="html">
-    <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
-      <p>
-        <input type="checkbox" v-on:change="markComplete"/>
-          {{todo.title}}
-        <button @click="$emit('del-todo',todo.id)" class="del">x</button>
-      </p>
+  <li class="todo-item" v-bind:class="{ 'is-complete': todo.completed }">
+    <Checkbox />
+    <h2>{{ todo.title }}</h2>
+    <hr />
+    <div class="text-center">
+      <v-sheet color="white">{{ todo.description }}</v-sheet>
     </div>
+    <button v-on:click="deleteTodo(todo.id)" class="del">x</button>
+  </li>
 </template>
 
 <script>
+import Checkbox from "./Checkbox.vue";
+import { db } from "../main";
 export default {
-    name: "TodoItem",
-    props: ["todo"],
-    methods:{
-      markComplete(){
-        this.todo.completed = !this.todo.completed;
-            }
+  name: "TodoItem",
+  components: {
+    Checkbox
+  },
+  props: ["todo"],
+  methods: {
+    deleteTodo(id) {
+      db.collection("todos")
+        .doc(id)
+        .delete()
+        .then(this.$store.dispatch("deleteTodo", id));
     }
-}
+  }
+};
 </script>
 
-<style lang="css" scoped >
-    .todo-item{
-      background: #f4f4f4;
-      padding: 10px;
-      border-bottom: 1px #ccc dotted;
-    }
-
-    .is-complete{
-      text-decoration: line-through;
-    }
-
-    .del{
-      background: #f00;
-      color: #fff;
-      border: none;
-      padding: 5px 9px;
-      border-radius: 50%;
-      cursor: pointer;
-      float: right;
-    }
-</style>
+<style></style>
