@@ -1,47 +1,42 @@
 <template>
   <div class="add-todo">
-    <v-form v-on:submit="handleSubmit">
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="12" md="12">
-            <v-text-field
-              v-model="title"
-              class="add-todo_input"
-              placeholder="Add Todo..."
-            ></v-text-field>
-            <Button type="submit" class="btn">Submit</Button>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
+    <form v-on:submit.prevent="handleSubmit">
+      <input
+        type="text"
+        v-model="title"
+        class="add-todo__input"
+        placeholder="Add Todo..."
+      />
+      <Button type="submit" class="btn">Submit</Button>
+    </form>
   </div>
 </template>
 
 <script>
-import { db } from "../main";
 export default {
   name: "AddTodo",
   data() {
     return {
-      title: ""
+      title: "",
+      project: "",
+      completed: false,
+      description: "",
+      dueDate: "",
+      userId: ""
     };
   },
   methods: {
     handleSubmit(e) {
-      this.addTodo(e);
-    },
-    addTodo(e) {
       e.preventDefault();
       const newTodo = {
         title: this.title,
+        project: this.$store.getters.getSelectedProject,
         completed: false,
+        description: "",
+        dueDate: "",
         userId: this.$store.getters.getUser.uid
       };
-      db.collection("todos")
-        .add(newTodo)
-        .then(() => {
-          this.$emit("add-todo", newTodo);
-        });
+      this.$emit("add-todo", newTodo);
       this.title = "";
     }
   }

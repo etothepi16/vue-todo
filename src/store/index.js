@@ -8,11 +8,32 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     todos: [],
+    activeTodos: [],
+    projects: [],
+    selectedProject: "Inbox",
     user: null
   },
   mutations: {
     SET_USER(state) {
       state.user = firebase.auth().currentUser;
+    },
+    SET_PROJECTS(state) {
+      let projects = [];
+
+      db.collection("projects")
+        .where("userId", "==", state.user.uid)
+        .get()
+        .then(snapshot => {
+          projects = [];
+          snapshot.forEach(doc => {
+            projects.push({ id: doc.id, ...doc.data() });
+          });
+          state.projects = projects;
+        });
+    },
+    SET_SELECTED_PROJECT(state, name) {
+      state.selectedProject = name;
+      state.activeTodos = state.todos.filter(todo => todo.project === name);
     },
     SET_TODOS(state) {
       let todos = [];
@@ -28,41 +49,46 @@ export const store = new Vuex.Store({
         });
     },
     ADD_TODO(state, todo) {
-      var newTodo = {
-        id: todo.id,
-        category: todo.category,
-        completed: false,
-        description: todo.description,
-        dueDate: todo.dueDate,
-        title: todo.title,
-        userId: todo.userId
-      };
-      state.todos.push(newTodo);
-    },
-    EDIT_TODO(state, todo) {
-      var todos = state.todos;
-      todos.splice(todos.indexOf(todo), 1);
-      state.todos = todos;
-      state.newTodo = todo;
+      state.todos.push(todo);
+      state.activeTodos.push(todo);
+      db.collection("todos").add(todo);
     },
     DELETE_TODO(state, todo) {
       var todos = state.todos;
-      todos.splice(todos.indexOf(todo), 1);
+      var activeTodos = state.activeTodos;
+      var id = todo.id;
+      const newTodos = todos.filter(el => el.id !== todo.id);
+      const newActiveTodos = activeTodos.filter(el => el.id !== todo.id);
+      state.todos = newTodos;
+      state.activeTodos = newActiveTodos;
+      db.collection("todos")
+        .doc(id)
+        .delete();
+      // todos.splice(todos.indexOf(todo), 1);
     },
     MARK_COMPLETE(state, todo) {
-      var todoIndex = state.todos.indexOf(todo);
-      todoIndex.completed = !todoIndex.completed;
+      var id = todo.id;
+      let i = state.todos.findIndex(el => el.id === id);
+      let el = state.todos[i];
+      el.completed = !el.completed;
+      state.todos[i] = el;
+      db.collection("todos")
+        .doc(id)
+        .update({ completed: el.completed });
     }
   },
   actions: {
     setTodos({ commit }) {
       commit("SET_TODOS");
     },
+    setProjects({ commit }) {
+      commit("SET_PROJECTS");
+    },
+    setSelectedProject({ commit }, name) {
+      commit("SET_SELECTED_PROJECT", name);
+    },
     addTodo({ commit }, todo) {
       commit("ADD_TODO", todo);
-    },
-    editTodo({ commit }, todo) {
-      commit("EDIT_TODO", todo);
     },
     deleteTodo({ commit }, todo) {
       commit("DELETE_TODO", todo);
@@ -76,6 +102,8 @@ export const store = new Vuex.Store({
   },
   getters: {
     getUser: state => state.user,
-    getTodos: state => state.todos
+    getTodos: state => state.activeTodos,
+    getProjects: state => state.projects,
+    getSelectedProject: state => state.selectedProject
   }
 });

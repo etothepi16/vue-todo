@@ -1,30 +1,34 @@
-<template lang="html">
+<template>
   <li class="todo-item" v-bind:class="{ 'is-complete': todo.completed }">
-    <Checkbox />
+    <span class="checkbox-holder">
+      <input
+        type="checkbox"
+        v-bind:checked="todo.completed"
+        v-on:change="markComplete(this)"
+      />
+    </span>
+    <span class="del" v-on:click="deleteTodo(this)"
+      ><v-icon>{{ svgPath }}</v-icon></span
+    >
     <h2>{{ todo.title }}</h2>
-    <hr />
-    <div class="text-center">
-      <v-sheet color="white">{{ todo.description }}</v-sheet>
-    </div>
-    <button v-on:click="deleteTodo(todo.id)" class="del">x</button>
+    <p>{{ todo.description }}</p>
   </li>
 </template>
 
 <script>
-import Checkbox from "./Checkbox.vue";
-import { db } from "../main";
+import { mdiDelete } from "@mdi/js";
 export default {
   name: "TodoItem",
-  components: {
-    Checkbox
-  },
   props: ["todo"],
+  data: () => ({
+    svgPath: mdiDelete
+  }),
   methods: {
-    deleteTodo(id) {
-      db.collection("todos")
-        .doc(id)
-        .delete()
-        .then(this.$store.dispatch("deleteTodo", id));
+    deleteTodo(todo) {
+      this.$emit("delete-todo", todo);
+    },
+    markComplete(todo) {
+      this.$emit("mark-complete", todo);
     }
   }
 };

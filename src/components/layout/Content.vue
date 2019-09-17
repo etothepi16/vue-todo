@@ -1,20 +1,20 @@
 <template>
   <div class="content">
-    <Sidebar />
-    <Todos />
+    <Todos v-bind:todos="todos" />
   </div>
 </template>
 
 <script>
-import Sidebar from "./Sidebar";
 import Todos from "../Todos";
 export default {
   name: "Content",
   components: {
-    Sidebar,
     Todos
+  },
+  data() {
+    return {
+      todos: []
+    };
   }
 };
 </script>
-
-<style></style>

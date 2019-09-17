@@ -9,7 +9,8 @@
       <div v-bind:key="todo.id" v-for="todo in todoList">
         <TodoItem
           v-bind:todo="todo"
-          v-on:del-todo="$emit('del-todo', todo.id)"
+          @delete-todo="deleteTodo(todo)"
+          @mark-complete="markComplete(todo)"
         />
       </div>
     </ul>
@@ -18,6 +19,7 @@
 
 <script>
 import TodoItem from "./TodoItem.vue";
+import { store } from "../store";
 export default {
   name: "Todos",
   components: {
@@ -25,7 +27,15 @@ export default {
   },
   computed: {
     todoList() {
-      return this.$store.getters.getTodos;
+      return store.getters.getTodos;
+    }
+  },
+  methods: {
+    deleteTodo(todo) {
+      store.dispatch("deleteTodo", todo);
+    },
+    markComplete(todo) {
+      store.dispatch("markComplete", todo);
     }
   }
 };
