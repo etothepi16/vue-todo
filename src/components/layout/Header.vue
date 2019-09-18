@@ -1,6 +1,5 @@
 <template>
   <v-app-bar :clipped-left="true" :clipped-right="true" color="secondary" app>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
     <v-toolbar-title>Todo List</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>

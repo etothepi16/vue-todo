@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <!-- TODO: MIGRATE ALL LAYOUT TO VUETIFY COMPONENTS -->
-    <Content />
-  </div>
+  <v-content>
+    <v-container fluid>
+      <Content />
+    </v-container>
+  </v-content>
 </template>
 
 <script>

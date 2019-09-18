@@ -1,7 +1,7 @@
 <template>
-  <div class="content">
+  <v-flex shrink>
     <Todos v-bind:todos="todos" />
-  </div>
+  </v-flex>
 </template>
 
 <script>

@@ -5,12 +5,10 @@
   >
     <Header />
     <Sidebar v-if="user" />
-    <v-content>
-      <v-container fluid>
-        <!-- If using vue-router -->
-        <router-view></router-view>
-      </v-container>
-    </v-content>
+
+    <!-- TODO: MAKE MOBILE RESPONSIVE -->
+    <router-view></router-view>
+
     <SidebarRight v-if="user" />
   </v-app>
 </template>
@@ -19,7 +17,6 @@
 import Sidebar from "./components/layout/Sidebar";
 import SidebarRight from "./components/layout/SidebarRight";
 import Header from "./components/layout/Header";
-// import "./App.scss";
 export default {
   name: "app",
   components: {

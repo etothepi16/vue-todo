@@ -53,21 +53,16 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then(user => {
-            var user = firebase.auth().currentUser;
-            logUser(user);
+            var ref = firebase.database().ref("users");
+            var obj = {
+              email: user.email,
+              projects: ["Work", "Personal", "Inbox"]
+            };
+            ref.add(obj).then(() => this.$router.replace("home"));
           });
       } else {
         alert("Passwords must match!");
       }
-    },
-    logUser(user) {
-      var ref = firebase.database().ref("users");
-      var obj = {
-        email: user.email,
-        projects: ["Work", "Personal", "Inbox"]
-      };
-      ref.add(obj);
-      this.$router.replace("home");
     }
   }
 };
