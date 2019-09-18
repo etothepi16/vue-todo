@@ -1,20 +1,22 @@
 <template>
-  <div
+  <v-expansion-panels
     v-if="
       this.$store.getters.getTodos && this.$store.getters.getTodos.length > 0
     "
     class="todos"
   >
-    <ul class="todos__list">
-      <div v-bind:key="todo.id" v-for="todo in todoList">
-        <TodoItem
-          v-bind:todo="todo"
-          @delete-todo="deleteTodo(todo)"
-          @mark-complete="markComplete(todo)"
-        />
-      </div>
-    </ul>
-  </div>
+    <v-expansion-panel
+      class="todos__list"
+      v-bind:key="todo.id"
+      v-for="todo in todoList"
+    >
+      <TodoItem
+        v-bind:todo="todo"
+        @delete-todo="deleteTodo(todo)"
+        @mark-complete="markComplete(todo)"
+      />
+    </v-expansion-panel>
+  </v-expansion-panels>
 </template>
 
 <script>

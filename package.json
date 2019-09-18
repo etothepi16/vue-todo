@@ -17,6 +17,7 @@
     "dotenv": "^8.1.0",
     "firebase": "^6.6.0",
     "git": "^0.1.5",
+    "material-design-icons-iconfont": "^5.0.1",
     "uui": "^1.0.7",
     "uuid": "^3.3.2",
     "vue": "^2.6.10",

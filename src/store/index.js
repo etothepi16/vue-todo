@@ -19,7 +19,6 @@ export const store = new Vuex.Store({
     },
     SET_PROJECTS(state) {
       let projects = [];
-
       db.collection("projects")
         .where("userId", "==", state.user.uid)
         .get()
@@ -39,6 +38,7 @@ export const store = new Vuex.Store({
       let todos = [];
       db.collection("todos")
         .where("userId", "==", state.user.uid)
+        .orderBy("dueDate")
         .get()
         .then(snapshot => {
           todos = [];
@@ -75,6 +75,19 @@ export const store = new Vuex.Store({
       db.collection("todos")
         .doc(id)
         .update({ completed: el.completed });
+    },
+    ADD_PROJECT(state, project) {
+      state.projects.push(project);
+      db.collection("projects").add(project);
+    },
+    DELETE_PROJECT(state, project) {
+      let id = project.id;
+      let projects = state.projects;
+      const remaining = projects.filter(p => p.id !== project.id);
+      state.projects = remaining;
+      db.collection("projects")
+        .doc(id)
+        .delete();
     }
   },
   actions: {
@@ -98,6 +111,12 @@ export const store = new Vuex.Store({
     },
     setUser({ commit }) {
       commit("SET_USER");
+    },
+    addProject({ commit }, project) {
+      commit("ADD_PROJECT", project);
+    },
+    deleteProject({ commit }, project) {
+      commit("DELETE_PROJECT", project);
     }
   },
   getters: {

@@ -2,6 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueRouter from "vue-router";
 import firebase from "firebase";
+import vuetify from "./plugins/vuetify";
+import "vuetify/dist/vuetify.min.css";
+import "material-design-icons-iconfont/dist/material-design-icons.css";
 import { routes } from "./router";
 import { store } from "./store";
 
@@ -40,6 +43,7 @@ router.beforeEach((to, from, next) => {
 firebase.auth().onAuthStateChanged(() => {
   new Vue({
     el: "#app",
+    vuetify,
     store: store,
     router: router,
     render: h => h(App)

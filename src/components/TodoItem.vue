@@ -1,28 +1,38 @@
 <template>
-  <li class="todo-item" v-bind:class="{ 'is-complete': todo.completed }">
-    <span class="checkbox-holder">
-      <input
-        type="checkbox"
-        v-bind:checked="todo.completed"
-        v-on:change="markComplete(this)"
-      />
-    </span>
-    <span class="del" v-on:click="deleteTodo(this)"
-      ><v-icon>{{ svgPath }}</v-icon></span
-    >
-    <h2>{{ todo.title }}</h2>
-    <p>{{ todo.description }}</p>
-  </li>
+  <div class="todo-item" v-bind:class="{ 'is-complete': todo.completed }">
+    <v-expansion-panel-header>{{ todo.title }}</v-expansion-panel-header>
+    <v-expansion-panel-content>
+      <p>Details: {{ todo.description || "none" }}</p>
+      <p>Due date: {{ todo.dueDate || "none" }}</p>
+      <p>
+        In project: <v-chip>{{ todo.project }}</v-chip>
+      </p>
+      <v-layout 2 justify-space-between>
+        <v-checkbox
+          v-model="todo.completed"
+          :label="`Mark complete`"
+          v-on:toggle="markComplete(todo)"
+        />
+        <v-tooltip left>
+          <template v-slot:activator="{ on }">
+            <v-icon v-on="on" v-on:click="deleteTodo(todo)">delete</v-icon>
+          </template>
+          <span>Delete</span>
+        </v-tooltip>
+      </v-layout>
+    </v-expansion-panel-content>
+  </div>
 </template>
 
 <script>
-import { mdiDelete } from "@mdi/js";
 export default {
   name: "TodoItem",
   props: ["todo"],
-  data: () => ({
-    svgPath: mdiDelete
-  }),
+  data() {
+    return {
+      dialog: false
+    };
+  },
   methods: {
     deleteTodo(todo) {
       this.$emit("delete-todo", todo);
@@ -34,4 +44,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.is-complete {
+  background-color: #8bc34acc;
+}
+</style>
