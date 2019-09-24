@@ -5,7 +5,7 @@
       <p>Details: {{ todo.description || "none" }}</p>
       <p>Due date: {{ todo.dueDate || "none" }}</p>
       <p>
-        In project: <v-chip>{{ todo.project }}</v-chip>
+        In project: <v-chip>{{ projectName }}</v-chip>
       </p>
       <v-layout 2 justify-space-between>
         <v-checkbox
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { db } from "../main";
+import { store } from "../store";
 export default {
   name: "TodoItem",
   props: ["todo"],
@@ -32,6 +34,16 @@ export default {
     return {
       dialog: false
     };
+  },
+  computed: {
+    projectName() {
+      let project = this.todo.project;
+      let projects = store.state.projects;
+      let index = projects.findIndex(pr => pr.id === project);
+      let p = projects[index];
+      let name = p.name;
+      return name;
+    }
   },
   methods: {
     deleteTodo(todo) {
