@@ -1,38 +1,6 @@
 <template>
-  <v-navigation-drawer :clipped="true" :enable-resize-watcher="true" bottom app>
+  <v-navigation-drawer :clipped="true" app>
     <v-list nav>
-      <v-list-item
-        v-on:click="setSelectedProject('Inbox', -3)"
-        :class="{ active: activeIndex === -3 }"
-        id="inbox"
-      >
-        <v-list-item-content
-          ><v-list-item-title class="title"
-            >Inbox</v-list-item-title
-          ></v-list-item-content
-        >
-      </v-list-item>
-      <v-list-item
-        v-on:click="setSelectedProject('Work', -2)"
-        :class="{ active: activeIndex === -2 }"
-      >
-        <v-list-item-content
-          ><v-list-item-title class="title"
-            >Work</v-list-item-title
-          ></v-list-item-content
-        >
-      </v-list-item>
-      <v-list-item
-        v-on:click="setSelectedProject('Personal', -1)"
-        :class="{ active: activeIndex === -1 }"
-      >
-        <v-list-item-content
-          ><v-list-item-title class="title"
-            >Personal</v-list-item-title
-          ></v-list-item-content
-        >
-      </v-list-item>
-      <v-divider></v-divider>
       <Projects />
       <v-divider></v-divider>
       <AddProject v-on:add-project="addProject" />

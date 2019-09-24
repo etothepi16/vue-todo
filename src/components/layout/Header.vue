@@ -40,4 +40,8 @@ a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.87) !important;
 }
+.v-app-bar {
+  height: 64px;
+  flex: none;
+}
 </style>

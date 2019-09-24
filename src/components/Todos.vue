@@ -4,6 +4,7 @@
       this.$store.getters.getTodos && this.$store.getters.getTodos.length > 0
     "
     class="todos"
+    app
   >
     <v-expansion-panel
       class="todos__list"

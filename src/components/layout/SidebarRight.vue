@@ -1,11 +1,5 @@
 <template>
-  <v-navigation-drawer
-    :clipped="true"
-    :enable-resize-watcher="true"
-    right
-    bottom
-    app
-  >
+  <v-navigation-drawer :clipped="true" right app>
     <v-list nav>
       <v-list-item>
         <v-list-item-content>

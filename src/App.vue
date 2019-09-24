@@ -9,7 +9,7 @@
     <!-- TODO: MAKE MOBILE RESPONSIVE -->
     <router-view></router-view>
 
-    <SidebarRight v-if="user" />
+    <!-- <SidebarRight v-if="user" /> -->
   </v-app>
 </template>
 

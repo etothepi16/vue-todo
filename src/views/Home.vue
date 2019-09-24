@@ -1,21 +1,41 @@
 <template>
-  <v-content>
+  <v-content app>
     <v-container fluid>
-      <Content />
+      <Todos v-bind:todos="todos" />
+      <AddTodo v-on:add-todo="addTodo" />
     </v-container>
   </v-content>
 </template>
 
 <script>
-import Content from "../components/layout/Content";
+import Todos from "../components/Todos";
+import AddTodo from "../components/AddTodo";
+import { store } from "../store";
 export default {
   components: {
-    Content
+    Todos,
+    AddTodo
   },
-
+  data() {
+    return {
+      todos: []
+    };
+  },
+  methods: {
+    addTodo(todo) {
+      store.dispatch("addTodo", todo);
+    }
+  },
   beforeCreate() {
-    this.$store.dispatch("setProjects");
-    this.$store.dispatch("setTodos");
+    store.dispatch("setProjects");
+    store.dispatch("setTodos");
   }
 };
 </script>
+
+<style scoped>
+.v-content.v-container {
+  margin: 0;
+  padding: 0;
+}
+</style>
