@@ -26,6 +26,7 @@
 
 <script>
 // import Header from "../components/layout/Header";
+import { store } from "../store";
 import firebase from "firebase";
 export default {
   name: "login",
@@ -45,13 +46,23 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then(() => this.$router.replace("home"));
+        .then(user => {
+          // console.log(JSON.stringify(user.user));
+          let u = user.user;
+          store.dispatch("setUser", u);
+          store.dispatch("setProjects");
+          store.dispatch("setTodos");
+          this.$router.replace("home");
+        });
     },
     logout() {
       firebase
         .auth()
         .signOut()
-        .then(() => this.$router.replace("login"));
+        .then(() => {
+          store.dispatch("setUser", null);
+          this.$router.replace("login");
+        });
     }
   }
 };

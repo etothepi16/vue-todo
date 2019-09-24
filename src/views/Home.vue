@@ -1,6 +1,6 @@
 <template>
-  <v-content app>
-    <v-container fluid>
+  <v-content class="fill-height" app>
+    <v-container>
       <Todos v-bind:todos="todos" />
       <AddTodo v-on:add-todo="addTodo" />
     </v-container>
@@ -35,7 +35,6 @@ export default {
 
 <style scoped>
 .v-content.v-container {
-  margin: 0;
-  padding: 0;
+  position: relative;
 }
 </style>

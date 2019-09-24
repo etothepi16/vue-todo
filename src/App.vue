@@ -5,34 +5,33 @@
   >
     <Header />
     <Sidebar v-if="user" />
+    <!-- TODO: try to prettify action button -->
+    <!-- TODO: check responsiveness -->
     <router-view></router-view>
   </v-app>
 </template>
-
 <script>
 import Sidebar from "./components/layout/Sidebar";
 import Header from "./components/layout/Header";
+import firebase from "firebase";
+import { store } from "./store";
 export default {
   name: "app",
   components: {
-    Sidebar,
-    Header
+    Header,
+    Sidebar
   },
   computed: {
     user() {
-      return this.$store.getters.getUser;
+      return store.getters.getUser;
     },
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
     }
   },
-  methods: {
-    setUser() {
-      this.$store.dispatch("setUser");
-    }
-  },
-  created() {
-    this.setUser();
+  beforeCreate() {
+    let user = firebase.auth().currentUser;
+    store.dispatch("setUser", user);
   }
 };
 </script>

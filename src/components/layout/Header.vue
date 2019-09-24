@@ -43,5 +43,6 @@ a {
 .v-app-bar {
   height: 64px;
   flex: none;
+  padding: 0px;
 }
 </style>

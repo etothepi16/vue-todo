@@ -36,18 +36,21 @@ router.beforeEach((to, from, next) => {
   else next();
 });
 
+let app = "";
 // Wrap the vue instance in a Firebase onAuthStateChanged method
 // This stops the execution of the navigation guard 'beforeEach'
 // method until the Firebase initialization ends
 // eslint-disable-next-line no-unused-vars
-firebase.auth().onAuthStateChanged(() => {
-  new Vue({
-    el: "#app",
-    vuetify,
-    store: store,
-    router: router,
-    render: h => h(App)
-  });
+firebase.auth().onAuthStateChanged(user => {
+  if (!app) {
+    new Vue({
+      el: "#app",
+      vuetify,
+      store: store,
+      router: router,
+      render: h => h(App)
+    });
+  }
 });
 const db = firebase.firestore();
 export { db };

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { db } from "../main";
-import firebase from "firebase";
 
 Vue.use(Vuex);
 
@@ -14,8 +13,8 @@ export const store = new Vuex.Store({
     user: null
   },
   mutations: {
-    SET_USER(state) {
-      state.user = firebase.auth().currentUser;
+    SET_USER(state, user) {
+      state.user = user;
     },
     SET_PROJECTS(state) {
       let projects = [];
@@ -109,8 +108,8 @@ export const store = new Vuex.Store({
     markComplete({ commit }, todo) {
       commit("MARK_COMPLETE", todo);
     },
-    setUser({ commit }) {
-      commit("SET_USER");
+    setUser({ commit }, user) {
+      commit("SET_USER", user);
     },
     addProject({ commit }, project) {
       commit("ADD_PROJECT", project);

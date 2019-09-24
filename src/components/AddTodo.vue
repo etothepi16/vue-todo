@@ -2,7 +2,7 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialogVisible" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn id="action" @click="dialogVisible = true">Add Project</v-btn>
+        <v-btn id="action" @click="dialogVisible = true">Add a task</v-btn>
       </template>
       <v-card>
         <v-card-title>
@@ -17,6 +17,7 @@
                   class="add-todo__input"
                   label="Name"
                   placeholder="Add a new task"
+                  :rules="[rules.required]"
                   required
                 />
               </v-col>
@@ -26,6 +27,7 @@
                   label="Description"
                   class="add-todo__input"
                   placeholder="Describe it here"
+                  :rules="[rules.required]"
                   required
                 />
               </v-col>
@@ -36,6 +38,7 @@
                   :items="projectList"
                   class="add-todo__input"
                   placeholder="Add to project"
+                  :rules="[rules.required]"
                   required
                 />
               </v-col>
@@ -52,6 +55,7 @@
                       v-model="dueDate"
                       label="Choose a due date"
                       readonly
+                      :rules="[rules.required]"
                       required
                       v-on="on"
                     ></v-text-field>
@@ -74,9 +78,8 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn @click.prevent="addProject" type="submit" class="btn"
-            >Submit</v-btn
-          >
+          <v-btn text @click="dialogVisible = false">Cancel</v-btn>
+          <v-btn text @click.prevent="addProject">Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -96,7 +99,10 @@ export default {
       dueDate: new Date().toISOString().substr(0, 10),
       userId: "",
       modal: false,
-      dialogVisible: false
+      dialogVisible: false,
+      rules: {
+        required: value => !!value || "Required."
+      }
     };
   },
   computed: {
@@ -112,6 +118,7 @@ export default {
   methods: {
     addProject(e) {
       e.preventDefault();
+
       const newTodo = {
         title: this.title,
         project: this.project,

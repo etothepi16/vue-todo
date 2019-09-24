@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :clipped="true" app>
+  <v-navigation-drawer :fixed="true" :clipped="true" app>
     <v-list nav>
       <Projects />
       <v-divider></v-divider>
@@ -48,9 +48,4 @@ export default {
   }
 };
 </script>
-<style>
-.v-navigation-drawer {
-  height: 100% !important;
-  max-height: 100% !important;
-}
-</style>
+<style></style>

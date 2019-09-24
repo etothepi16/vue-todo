@@ -31,6 +31,7 @@
 
 <script>
 // import Header from "../components/layout/Header";
+import { store } from "../store";
 import firebase from "firebase";
 export default {
   name: "register",
@@ -56,9 +57,11 @@ export default {
             var ref = firebase.database().ref("users");
             var obj = {
               email: user.email,
-              projects: ["Work", "Personal", "Inbox"]
+              projects: []
             };
-            ref.add(obj).then(() => this.$router.replace("home"));
+            ref.add(obj);
+            store.dispatch("setUser", user.user);
+            this.$router.replace("home");
           });
       } else {
         alert("Passwords must match!");
