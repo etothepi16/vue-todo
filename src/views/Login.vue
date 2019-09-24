@@ -1,29 +1,31 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout justify-center>
-      <v-card>
-        <v-card-title>Sign in</v-card-title>
-        <v-card-text>
-          <v-form>
-            <v-text-field v-model="email" placeholder="Email" />
-            <v-text-field
-              type="password"
-              v-model="password"
-              placeholder="password"
-            />
-            <br />
-            <p>
-              Don't have an account yet? You can create one
-              <router-link to="/register">here</router-link>!
-            </p>
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn type="submit" v-on:click="login">Log in</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-layout>
-  </v-container>
+  <v-content>
+    <v-container fluid>
+      <v-layout justify-center align-center>
+        <v-card>
+          <v-card-title>Sign in</v-card-title>
+          <v-card-text>
+            <v-form>
+              <v-text-field v-model="email" placeholder="Email" />
+              <v-text-field
+                type="password"
+                v-model="password"
+                placeholder="password"
+              />
+              <br />
+              <p>
+                Don't have an account yet? You can create one
+                <router-link to="/register">here</router-link>!
+              </p>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn type="submit" v-on:click="login">Log in</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -54,7 +56,7 @@ export default {
           store.dispatch("setUser", u);
           store.dispatch("setProjects");
           store.dispatch("setTodos");
-          this.$router.replace("home");
+          this.$router.replace("/home");
         });
     },
     logout() {
@@ -63,9 +65,14 @@ export default {
         .signOut()
         .then(() => {
           store.dispatch("setUser", null);
-          this.$router.replace("login");
+          this.$router.replace("/login");
         });
     }
   }
 };
 </script>
+<style scoped>
+.v-content {
+  padding: 64px 0px 0px 0px !important;
+}
+</style>

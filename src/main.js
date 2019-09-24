@@ -7,6 +7,7 @@ import "vuetify/dist/vuetify.min.css";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
 import { routes } from "./router";
 import { store } from "./store";
+import { sync } from "vuex-router-sync";
 
 const config = {
   apiKey: "AIzaSyCbjIYCRlwhoCSTGJodHz4CVrMvkjWDOjU",
@@ -25,7 +26,7 @@ const router = new VueRouter({
   routes: routes,
   mode: "history"
 });
-
+sync(store, router);
 // Check if user is authenticated and if route requires authentication
 router.beforeEach((to, from, next) => {
   // to and from are both route objects. must call `next`.

@@ -3,7 +3,7 @@
     <v-list-item
       v-bind:key="project.id"
       v-for="(project, index) in projectList"
-      v-on:click="setSelectedProject(project.name, index)"
+      v-on:click="setSelectedProject(project.id, index)"
     >
       <IndividualProject
         v-bind:project="project"
@@ -35,8 +35,8 @@ export default {
     setActive(index) {
       this.activeIndex = index;
     },
-    setSelectedProject(project, index) {
-      store.dispatch("setSelectedProject", project);
+    setSelectedProject(id, index) {
+      store.dispatch("setSelectedProject", id);
       this.setActive(index);
       // store.getters.getTodos;
     },

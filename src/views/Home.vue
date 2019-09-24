@@ -1,8 +1,10 @@
 <template>
-  <v-container fluid fill-height>
-    <Todos v-bind:todos="todos" />
-    <AddTodo v-on:add-todo="addTodo" />
-  </v-container>
+  <v-content>
+    <v-container fluid>
+      <Todos v-bind:todos="todos" />
+      <AddTodo v-on:add-todo="addTodo" />
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -31,4 +33,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+main {
+  padding: 64px 0px 0px 256px !important;
+}
+</style>

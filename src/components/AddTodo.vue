@@ -100,6 +100,7 @@ export default {
       description: "",
       dueDate: new Date().toISOString().substr(0, 10),
       userId: "",
+      pl: [],
       modal: false,
       dialogVisible: false,
       rules: {
@@ -112,18 +113,26 @@ export default {
       let projects = store.state.projects;
       let list = [];
       projects.forEach(project => {
+        this.pl.push({ name: project.name, id: project.id });
         list.push(project.name);
       });
       return list;
+    },
+    projectId() {
+      const project = this.pl.filter(p => p.name === this.project);
+      return project;
     }
   },
   methods: {
     addProject(e) {
       e.preventDefault();
-
+      let p = this.projectId;
+      console.log(p);
+      const id = p[0].id;
+      console.log(id);
       const newTodo = {
         title: this.title,
-        project: this.project,
+        project: id,
         completed: false,
         description: this.description,
         dueDate: this.dueDate,

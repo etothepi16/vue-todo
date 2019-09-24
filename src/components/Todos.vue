@@ -4,7 +4,6 @@
       this.$store.getters.getTodos && this.$store.getters.getTodos.length > 0
     "
     class="todos"
-    app
   >
     <v-expansion-panel
       class="todos__list"
@@ -44,4 +43,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

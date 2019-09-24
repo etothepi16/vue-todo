@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
     todos: [],
     activeTodos: [],
     projects: [],
-    selectedProject: "Inbox",
+    selectedProject: "",
     user: null
   },
   mutations: {
@@ -29,9 +29,9 @@ export const store = new Vuex.Store({
           state.projects = projects;
         });
     },
-    SET_SELECTED_PROJECT(state, name) {
-      state.selectedProject = name;
-      state.activeTodos = state.todos.filter(todo => todo.project === name);
+    SET_SELECTED_PROJECT(state, id) {
+      state.selectedProject = id;
+      state.activeTodos = state.todos.filter(todo => todo.project === id);
     },
     SET_TODOS(state) {
       let todos = [];
@@ -96,8 +96,8 @@ export const store = new Vuex.Store({
     setProjects({ commit }) {
       commit("SET_PROJECTS");
     },
-    setSelectedProject({ commit }, name) {
-      commit("SET_SELECTED_PROJECT", name);
+    setSelectedProject({ commit }, id) {
+      commit("SET_SELECTED_PROJECT", id);
     },
     addTodo({ commit }, todo) {
       commit("ADD_TODO", todo);

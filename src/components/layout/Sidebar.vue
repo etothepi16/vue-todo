@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :clipped="true" class="fill-height" app>
+  <v-navigation-drawer :clipped="true" absolute fixed app>
     <v-list nav>
       <Projects />
       <v-divider></v-divider>
@@ -19,9 +19,8 @@ export default {
   },
   data() {
     return {
-      activeIndex: -3,
-      projects: [],
-      mini: false
+      activeIndex: 0,
+      projects: []
     };
   },
   computed: {
@@ -33,8 +32,8 @@ export default {
     setActive(index) {
       this.activeIndex = index;
     },
-    setSelectedProject(project, index) {
-      store.dispatch("setSelectedProject", project);
+    setSelectedProject(id, index) {
+      store.dispatch("setSelectedProject", id);
       this.setActive(index);
       // store.getters.getTodos;
     },
@@ -48,4 +47,9 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+.v-navigation-drawer {
+  min-height: 100% !important;
+  top: 64px !important;
+}
+</style>

@@ -1,34 +1,36 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout justify-center>
-      <v-card>
-        <v-card-title>Sign up</v-card-title>
-        <v-card-text>
-          <v-form>
-            <v-text-field v-model="email" placeholder="Email" />
-            <v-text-field
-              type="password"
-              v-model="password"
-              placeholder="Password"
-            />
-            <v-text-field
-              type="password"
-              v-model="confirmPassword"
-              placeholder="Confirm Password"
-            />
-            <br />
-            <p>
-              Already have an account? Log in
-              <router-link to="/login">here</router-link>!
-            </p>
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn type="submit" v-on:click="register">Submit</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-layout>
-  </v-container>
+  <v-content>
+    <v-container fluid>
+      <v-layout justify-center align-center>
+        <v-card>
+          <v-card-title>Sign up</v-card-title>
+          <v-card-text>
+            <v-form>
+              <v-text-field v-model="email" placeholder="Email" />
+              <v-text-field
+                type="password"
+                v-model="password"
+                placeholder="Password"
+              />
+              <v-text-field
+                type="password"
+                v-model="confirmPassword"
+                placeholder="Confirm Password"
+              />
+              <br />
+              <p>
+                Already have an account? Log in
+                <router-link to="/login">here</router-link>!
+              </p>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn type="submit" v-on:click="register">Submit</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -58,12 +60,11 @@ export default {
           .then(user => {
             var ref = firebase.database().ref("users");
             var obj = {
-              email: user.email,
-              projects: []
+              email: user.email
             };
             ref.add(obj);
             store.dispatch("setUser", user.user);
-            this.$router.replace("home");
+            this.$router.replace("/home");
           });
       } else {
         alert("Passwords must match!");
@@ -72,3 +73,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.v-content {
+  padding: 64px 0px 0px 0px !important;
+}
+</style>
