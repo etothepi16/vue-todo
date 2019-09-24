@@ -36,5 +36,6 @@ export default {
 <style scoped>
 main {
   padding: 64px 0px 0px 256px !important;
+  overflow: hidden;
 }
 </style>

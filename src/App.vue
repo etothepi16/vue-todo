@@ -36,4 +36,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#app {
+  max-height: 100vh;
+  overflow: hidden;
+}
+</style>

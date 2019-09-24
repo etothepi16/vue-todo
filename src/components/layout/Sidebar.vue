@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :clipped="true" absolute fixed app>
+  <v-navigation-drawer clipped absolute fixed app>
     <v-list nav>
       <Projects />
       <v-divider v-if="projects.length > 1"></v-divider>
@@ -49,7 +49,9 @@ export default {
 </script>
 <style>
 .v-navigation-drawer {
-  height: calc(100vh-64px) !important;
+  /* display: flex; */
+  min-height: 100vh !important;
   top: 64px !important;
+  overflow: hidden;
 }
 </style>
