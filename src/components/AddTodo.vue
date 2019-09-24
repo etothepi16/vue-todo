@@ -26,38 +26,33 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-row>
-              <v-col cols="12" sm="6" md="3">
-                <v-text-field
-                  v-model="title"
-                  class="add-todo__input"
-                  label="Name"
-                  placeholder="Add a new task"
-                  :rules="required"
-                  required
-                />
-              </v-col>
-              <v-col cols="12" sm="6" md="3">
-                <v-text-field
-                  v-model="description"
-                  label="Description"
-                  class="add-todo__input"
-                  placeholder="Describe it here"
-                  :rules="required"
-                  required
-                />
-              </v-col>
-              <v-col cols="12" sm="6" md="3">
-                <v-select
-                  v-model="project"
-                  label="Project"
-                  :items="projectList"
-                  class="add-todo__input"
-                  placeholder="Add to project"
-                  :rules="required"
-                  required
-                />
-              </v-col>
+            <v-form v-model="valid">
+              <v-text-field
+                v-model="title"
+                class="add-todo__input"
+                label="Name"
+                placeholder="Add a new task"
+                :rules="required"
+                required
+              />
+              <v-text-field
+                v-model="description"
+                label="Description"
+                class="add-todo__input"
+                placeholder="Describe it here"
+                :rules="required"
+                required
+              />
+
+              <v-select
+                v-model="project"
+                label="Project"
+                :items="projectList"
+                class="add-todo__input"
+                placeholder="Add to project"
+                :rules="required"
+                required
+              />
               <v-dialog
                 ref="dialog"
                 v-model="modal"
@@ -66,16 +61,14 @@
                 width="290px"
               >
                 <template v-slot:activator="{ on }">
-                  <v-col cols="12" sm="6" md="3">
-                    <v-text-field
-                      v-model="dueDate"
-                      label="Choose a due date"
-                      readonly
-                      :rules="required"
-                      required
-                      v-on="on"
-                    ></v-text-field>
-                  </v-col>
+                  <v-text-field
+                    v-model="dueDate"
+                    label="Choose a due date"
+                    readonly
+                    :rules="required"
+                    required
+                    v-on="on"
+                  ></v-text-field>
                 </template>
                 <v-date-picker v-model="dueDate" scrollable>
                   <div class="flex-grow-1"></div>
@@ -90,7 +83,7 @@
                   >
                 </v-date-picker>
               </v-dialog>
-            </v-row>
+            </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
