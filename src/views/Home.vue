@@ -1,10 +1,8 @@
 <template>
-  <v-content class="fill-height" app>
-    <v-container>
-      <Todos v-bind:todos="todos" />
-      <AddTodo v-on:add-todo="addTodo" />
-    </v-container>
-  </v-content>
+  <v-container fluid fill-height>
+    <Todos v-bind:todos="todos" />
+    <AddTodo v-on:add-todo="addTodo" />
+  </v-container>
 </template>
 
 <script>
@@ -33,8 +31,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-content.v-container {
-  position: relative;
-}
-</style>
+<style></style>

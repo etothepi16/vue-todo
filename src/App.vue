@@ -7,7 +7,9 @@
     <Sidebar v-if="user" />
     <!-- TODO: try to prettify action button -->
     <!-- TODO: check responsiveness -->
-    <router-view></router-view>
+    <v-content>
+      <router-view></router-view>
+    </v-content>
   </v-app>
 </template>
 <script>

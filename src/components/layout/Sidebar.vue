@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :fixed="true" :clipped="true" app>
+  <v-navigation-drawer :clipped="true" class="fill-height" app>
     <v-list nav>
       <Projects />
       <v-divider></v-divider>

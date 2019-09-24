@@ -1,27 +1,29 @@
 <template>
-  <v-layout justify-center align-center>
-    <v-card>
-      <v-card-title>Sign in</v-card-title>
-      <v-card-text>
-        <v-form>
-          <v-text-field v-model="email" placeholder="Email" />
-          <v-text-field
-            type="password"
-            v-model="password"
-            placeholder="password"
-          />
-          <br />
-          <p>
-            Don't have an account yet? You can create one
-            <router-link to="/register">here</router-link>!
-          </p>
-        </v-form>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn type="submit" v-on:click="login">Log in</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-layout>
+  <v-container fluid fill-height>
+    <v-layout justify-center>
+      <v-card>
+        <v-card-title>Sign in</v-card-title>
+        <v-card-text>
+          <v-form>
+            <v-text-field v-model="email" placeholder="Email" />
+            <v-text-field
+              type="password"
+              v-model="password"
+              placeholder="password"
+            />
+            <br />
+            <p>
+              Don't have an account yet? You can create one
+              <router-link to="/register">here</router-link>!
+            </p>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn type="submit" v-on:click="login">Log in</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

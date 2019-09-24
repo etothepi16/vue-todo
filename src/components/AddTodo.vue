@@ -2,7 +2,9 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialogVisible" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn id="action" @click="dialogVisible = true">Add a task</v-btn>
+        <v-btn id="action" @click="dialogVisible = true" absolute bottom right
+          >Add a task</v-btn
+        >
       </template>
       <v-card>
         <v-card-title>
@@ -138,10 +140,4 @@ export default {
 };
 </script>
 
-<style scoped>
-#action {
-  position: absolute;
-  top: 90%;
-  left: 2%;
-}
-</style>
+<style scoped></style>
