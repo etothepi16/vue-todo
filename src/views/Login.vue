@@ -6,11 +6,16 @@
           <v-card-title>Sign in</v-card-title>
           <v-card-text>
             <v-form>
-              <v-text-field v-model="email" placeholder="Email" />
+              <v-text-field
+                v-model="email"
+                placeholder="Email"
+                autocomplete="username"
+              />
               <v-text-field
                 type="password"
                 v-model="password"
                 placeholder="password"
+                autocomplete="current-password"
               />
               <br />
               <p>

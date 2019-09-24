@@ -11,11 +11,13 @@
                 type="password"
                 v-model="password"
                 placeholder="Password"
+                autocomplete="new-password"
               />
               <v-text-field
                 type="password"
                 v-model="confirmPassword"
                 placeholder="Confirm Password"
+                autocomplete="new-password"
               />
               <br />
               <p>
@@ -36,6 +38,7 @@
 <script>
 // import Header from "../components/layout/Header";
 import { store } from "../store";
+import { db } from "../main";
 import firebase from "firebase";
 export default {
   name: "register",
@@ -58,11 +61,11 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then(user => {
-            var ref = firebase.database().ref("users");
-            var obj = {
-              email: user.email
+            let userCollection = db.collection("users");
+            let u = {
+              email
             };
-            ref.add(obj);
+            userCollection.add(u);
             store.dispatch("setUser", user.user);
             this.$router.replace("/home");
           });

@@ -2,14 +2,17 @@
   <v-list-item>
     <v-list-item-content>
       <h5>Add a new project</h5>
-      <v-form v-on:submit.prevent="createProject">
+      <v-form v-on:submit.prevent="createProject" v-model="valid">
         <v-text-field
           v-model="name"
           id="name"
           placeholder="New project name"
+          :rules="required"
           required
         />
-        <v-btn type="submit" class="btn">Add</v-btn>
+        <v-btn type="submit" color="secondary" :disabled="!valid" class="btn"
+          >Add</v-btn
+        >
       </v-form>
     </v-list-item-content>
   </v-list-item>
@@ -21,7 +24,9 @@ export default {
   data() {
     return {
       name: "",
-      userId: ""
+      userId: "",
+      required: [value => !!value || "Required."],
+      valid: false
     };
   },
   methods: {
@@ -34,6 +39,7 @@ export default {
         userId: userId
       };
       this.$emit("add-project", newProject);
+      this.name = "";
     }
   }
 };

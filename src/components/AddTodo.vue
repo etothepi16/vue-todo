@@ -2,9 +2,23 @@
   <v-layout row justify-center>
     <v-dialog v-model="dialogVisible" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn id="action" @click="dialogVisible = true" absolute bottom right
-          >Add a task</v-btn
-        >
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              id="action"
+              v-on="on"
+              color="secondary"
+              @click="dialogVisible = true"
+              class="mb-10"
+              absolute
+              bottom
+              left
+              fab
+              ><v-icon>mdi-plus</v-icon></v-btn
+            >
+          </template>
+          <span>Add a todo item!</span>
+        </v-tooltip>
       </template>
       <v-card>
         <v-card-title>
@@ -19,7 +33,7 @@
                   class="add-todo__input"
                   label="Name"
                   placeholder="Add a new task"
-                  :rules="[rules.required]"
+                  :rules="required"
                   required
                 />
               </v-col>
@@ -29,7 +43,7 @@
                   label="Description"
                   class="add-todo__input"
                   placeholder="Describe it here"
-                  :rules="[rules.required]"
+                  :rules="required"
                   required
                 />
               </v-col>
@@ -40,7 +54,7 @@
                   :items="projectList"
                   class="add-todo__input"
                   placeholder="Add to project"
-                  :rules="[rules.required]"
+                  :rules="required"
                   required
                 />
               </v-col>
@@ -57,7 +71,7 @@
                       v-model="dueDate"
                       label="Choose a due date"
                       readonly
-                      :rules="[rules.required]"
+                      :rules="required"
                       required
                       v-on="on"
                     ></v-text-field>
@@ -81,7 +95,9 @@
         </v-card-text>
         <v-card-actions>
           <v-btn text @click="dialogVisible = false">Cancel</v-btn>
-          <v-btn text @click.prevent="addProject">Submit</v-btn>
+          <v-btn text @click.prevent="addProject" :disabled="!valid"
+            >Submit</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -103,9 +119,8 @@ export default {
       pl: [],
       modal: false,
       dialogVisible: false,
-      rules: {
-        required: value => !!value || "Required."
-      }
+      valid: false,
+      required: [value => !!value || "Required."]
     };
   },
   computed: {

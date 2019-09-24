@@ -79,13 +79,14 @@ export const store = new Vuex.Store({
       state.projects.push(project);
       db.collection("projects").add(project);
     },
-    DELETE_PROJECT(state, project) {
-      let id = project.id;
+    DELETE_PROJECT(state, id) {
+      let _id = id.id;
+      console.log(id);
       let projects = state.projects;
-      const remaining = projects.filter(p => p.id !== project.id);
+      const remaining = projects.filter(p => p.id !== _id);
       state.projects = remaining;
       db.collection("projects")
-        .doc(id)
+        .doc(_id)
         .delete();
     }
   },
@@ -114,8 +115,8 @@ export const store = new Vuex.Store({
     addProject({ commit }, project) {
       commit("ADD_PROJECT", project);
     },
-    deleteProject({ commit }, project) {
-      commit("DELETE_PROJECT", project);
+    deleteProject({ commit }, id) {
+      commit("DELETE_PROJECT", id);
     }
   },
   getters: {

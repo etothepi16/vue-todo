@@ -2,7 +2,7 @@
   <v-navigation-drawer :clipped="true" absolute fixed app>
     <v-list nav>
       <Projects />
-      <v-divider></v-divider>
+      <v-divider v-if="projects.length > 1"></v-divider>
       <AddProject v-on:add-project="addProject" />
     </v-list>
   </v-navigation-drawer>
@@ -49,7 +49,7 @@ export default {
 </script>
 <style>
 .v-navigation-drawer {
-  min-height: 100% !important;
+  height: calc(100vh-64px) !important;
   top: 64px !important;
 }
 </style>
