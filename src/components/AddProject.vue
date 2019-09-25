@@ -2,7 +2,7 @@
   <v-list-item>
     <v-list-item-content>
       <h5>Add a new project</h5>
-      <v-form v-on:submit.prevent="createProject" v-model="valid">
+      <v-form v-on:submit.prevent="createProject" ref="form" v-model="valid">
         <v-text-field
           v-model="name"
           id="name"
@@ -40,6 +40,7 @@ export default {
       };
       this.$emit("add-project", newProject);
       this.name = "";
+      this.$refs.form.resetValidation();
     }
   }
 };

@@ -26,7 +26,7 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-form v-model="valid">
+            <v-form ref="form" v-model="valid">
               <v-text-field
                 v-model="title"
                 class="add-todo__input"
@@ -87,7 +87,7 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn text @click="dialogVisible = false">Cancel</v-btn>
+          <v-btn text @click="cancel">Cancel</v-btn>
           <v-btn text @click.prevent="addProject" :disabled="!valid"
             >Submit</v-btn
           >
@@ -132,6 +132,14 @@ export default {
     }
   },
   methods: {
+    cancel() {
+      this.title = "";
+      this.project = "";
+      this.description = "";
+      this.dueDate = "";
+      this.dialogVisible = false;
+      this.$refs.form.resetValidation();
+    },
     addProject(e) {
       e.preventDefault();
       let p = this.projectId;
@@ -152,6 +160,7 @@ export default {
       this.description = "";
       this.dueDate = "";
       this.dialogVisible = false;
+      this.$refs.form.resetValidation();
     }
   }
 };

@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { db } from "../main";
 import { store } from "../store";
 export default {
   name: "TodoItem",
