@@ -12,7 +12,7 @@
   "main": "babel.config.js",
   "dependencies": {
     "@mdi/js": "^4.4.95",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "core-js": "^2.6.5",
     "dotenv": "^8.1.0",
     "firebase": "^6.6.0",
